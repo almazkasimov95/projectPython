@@ -11,8 +11,6 @@ on:
         type: choise
         default: all
         options:
-          - smoke
-          - regression
           - all
 
 
