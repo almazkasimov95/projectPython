@@ -12,6 +12,8 @@ on:
         default: all
         options:
           - all
+          - smoke
+          - regression
 
 
 jobs:
