@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       deployment_target:
-        description: Select tests to run\
+        description: Select tests to run
         required: true
         type: choice
         default: all
