@@ -1,4 +1,4 @@
-# Week 1 — AQA Roadmap (Ivan)
+# Week 1 — AQA Roadmap (Almaz)
 
 Простой скрипт сбора данных пользователя с валидацией и сохранением в JSON.
 
