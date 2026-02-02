@@ -9,6 +9,7 @@ class LoginPage:
         self.password_input = page.locator("#password")
         self.login_button = page.locator("button[type='submit']")
         self.success_message = page.locator(".flash.success")
+        self.error_message = page.locator(".flash.error")  # ← добавь эту строку!
 
     def load(self):
         self.page.goto(self.URL)
@@ -23,3 +24,10 @@ class LoginPage:
 
     def get_success_message_text(self) -> str:
         return self.success_message.text_content()
+
+    # === НОВЫЕ МЕТОДЫ ДЛЯ ОШИБКИ ===
+    def is_error_message_visible(self) -> bool:
+        return self.error_message.is_visible()
+
+    def get_error_message_text(self) -> str:
+        return self.error_message.text_content()
