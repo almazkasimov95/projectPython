@@ -1,16 +1,15 @@
 # pages/login_page.py
-from utils.config_loader import load_config
 
 class LoginPage:
-    def __init__(self, page, env=None):
+    URL = "https://the-internet.herokuapp.com/login"
+
+    def __init__(self, page):
         self.page = page
-        self.config = load_config(env)
-        self.URL = f"{self.config['base_url']}/login"
         self.username_input = page.locator("#username")
         self.password_input = page.locator("#password")
         self.login_button = page.locator("button[type='submit']")
         self.success_message = page.locator(".flash.success")
-        self.error_message = page.locator(".flash.error")  # ← добавь эту строку!
+        self.error_message = page.locator(".flash.error")
 
     def load(self):
         self.page.goto(self.URL)
@@ -26,7 +25,6 @@ class LoginPage:
     def get_success_message_text(self) -> str:
         return self.success_message.text_content()
 
-    # === НОВЫЕ МЕТОДЫ ДЛЯ ОШИБКИ ===
     def is_error_message_visible(self) -> bool:
         return self.error_message.is_visible()
 
@@ -34,17 +32,12 @@ class LoginPage:
         return self.error_message.text_content()
 
     def login_via_cookie(self, username="tomsmith"):
-        # Сначала зайди на страницу, чтобы установить сессию
+        # Заходим на страницу, чтобы установить контекст
         self.page.goto(self.URL)
-        # Установи cookie напрямую
+        # Устанавливаем cookie (на этом сайте это не сработает, но код корректен)
         self.page.context.add_cookies([{
             "name": "user",
             "value": username,
-            "url": self.config["base_url"]
+            "url": "https://the-internet.herokuapp.com"
         }])
-        # Перезагрузи → должен быть залогинен
         self.page.reload()
-
-    def test_login_via_cookie(login_page):
-        login_page.login_via_cookie()
-        assert login_page.is_success_message_visible()

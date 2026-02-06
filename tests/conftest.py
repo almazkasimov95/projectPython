@@ -15,7 +15,7 @@ from pages.login_page import LoginPage
 @pytest.fixture
 def page():
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False, slow_mo=500)
+        browser = p.chromium.launch(headless=True)  # headless=True для CI
         page = browser.new_page()
         yield page
         browser.close()
@@ -28,13 +28,4 @@ def login_page(page):
 
 @pytest.fixture
 def api_base_url():
-    return "https://jsonplaceholder.typicode.com"
-
-# conftest.py
-@pytest.fixture(scope="session")
-def env(pytestconfig):
-    return pytestconfig.getoption("--env")
-
-@pytest.fixture
-def login_page(page, env):
-    return LoginPage(page, env=env)
+    return "https://jsonplaceholder.typicode.com".strip()
