@@ -4,3 +4,4 @@ playwright
 requests
 jsonschema
 allure-pytest
+PyYAML
