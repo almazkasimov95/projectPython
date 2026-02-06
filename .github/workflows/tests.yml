@@ -1,14 +1,11 @@
 name: Run AQA Tests
 
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+on: [push, pull_request]
 
 jobs:
   test:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 
@@ -25,8 +22,8 @@ jobs:
       - name: Install Playwright browsers
         run: playwright install chromium
 
-      - name: Run tests
-        run: pytest tests/ --alluredir=./allure-results
+      - name: Run all tests (UI + API)
+        run: pytest tests/ --alluredir=./allure-results --tb=short
 
       - name: Upload Allure results
         uses: actions/upload-artifact@v4

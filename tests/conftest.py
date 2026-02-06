@@ -29,3 +29,12 @@ def login_page(page):
 @pytest.fixture
 def api_base_url():
     return "https://jsonplaceholder.typicode.com"
+
+# conftest.py
+@pytest.fixture(scope="session")
+def env(pytestconfig):
+    return pytestconfig.getoption("--env")
+
+@pytest.fixture
+def login_page(page, env):
+    return LoginPage(page, env=env)
